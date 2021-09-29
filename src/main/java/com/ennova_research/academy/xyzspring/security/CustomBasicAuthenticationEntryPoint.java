@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-
+/**
+ * @author Alberto Ielpo
+ */
 public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
@@ -18,9 +20,9 @@ public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
     	
     	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     	response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
-        
+        response.addHeader("Content-Type", "Application/Json");
         PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 : " + authException.getMessage());
+        writer.println("{\"status\": \"Error\", \"message\": \"Not authorized\"}");
     }
     
     @Override

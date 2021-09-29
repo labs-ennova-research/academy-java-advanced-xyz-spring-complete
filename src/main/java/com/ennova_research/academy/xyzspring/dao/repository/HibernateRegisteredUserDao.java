@@ -32,15 +32,14 @@ public class HibernateRegisteredUserDao implements RegisteredUserDao  {
 		
 		String queryStr = 
 			"select r from RegisteredUser r "
-			+ "join RegisteredUserRole rur on r.idRegisteredUserRole = rur.idRegisteredUserRole "
 			+ "join Partecipant p on r.idRegisteredUser = p.idRegisteredUser "
 			+ "join Course c on c.idCourse = p.idCourse "
 			+ "where lower(c.name) = :courseName "
-				+ "and rur.roleType = :roleType";
+				+ "and r.userRole = :roleType";
 				
 		var query = this.sessionFactory.getCurrentSession().createQuery(queryStr, RegisteredUser.class);
 		query.setParameter("courseName", courseName.toLowerCase(), org.hibernate.type.StringType.INSTANCE);
-		query.setParameter("roleType", RegisteredRoleType.STUDENT.getValue(), org.hibernate.type.ShortType.INSTANCE);
+		query.setParameter("roleType", RegisteredRoleType.STUDENT.getValue(), org.hibernate.type.StringType.INSTANCE);
 		return query.getResultList();
 	}
 

@@ -4,17 +4,17 @@ package com.ennova_research.academy.xyzspring.dao.model;
  */
 public enum BoUserRoleType {
 	
-	ADMIN((short)0),
-	READ_ALL((short)1),
-	WRITE_ALL((short)2);
+	ADMIN("ADMIN"),
+	READ_ALL("READ_ALL"),
+	WRITE_ALL("WRITE_ALL");
 	
-	private final short value;
+	private final String value;
 	
-	private BoUserRoleType(short value) {
+	private BoUserRoleType(String value) {
 		this.value = value;
 	}
 	
-	public short getValue() {
+	public String getValue() {
 		return this.value;
 	}
 	

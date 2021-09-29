@@ -3,6 +3,7 @@ package com.ennova_research.academy.xyzspring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,7 +28,9 @@ public class CourseController {
 
 	@Autowired
 	private RegisteredUserService registeredUserServiceImpl;
-	    
+
+	final static Logger logger = Logger.getLogger(CourseController.class);
+
     /**
      * 
      * @return
@@ -52,6 +55,7 @@ public class CourseController {
 
     		return ResponseFactory.jsonOkResponse(resModel);
         } catch (Exception e) {
+        	logger.error(e);
         	return ResponseFactory.jsonErrorResponse("Something bad happened");
         }
        

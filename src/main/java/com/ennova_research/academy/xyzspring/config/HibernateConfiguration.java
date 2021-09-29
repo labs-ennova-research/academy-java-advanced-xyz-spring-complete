@@ -9,11 +9,9 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.ennova_research.academy.xyzspring.dao.model.BoUser;
-import com.ennova_research.academy.xyzspring.dao.model.BoUserRole;
 import com.ennova_research.academy.xyzspring.dao.model.Course;
 import com.ennova_research.academy.xyzspring.dao.model.Partecipant;
 import com.ennova_research.academy.xyzspring.dao.model.RegisteredUser;
-import com.ennova_research.academy.xyzspring.dao.model.RegisteredUserRole;
 
 /**
  * @author Alberto Ielpo
@@ -30,11 +28,9 @@ public class HibernateConfiguration {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
         factoryBean.setAnnotatedClasses(BoUser.class);
-        factoryBean.setAnnotatedClasses(BoUserRole.class);
         factoryBean.setAnnotatedClasses(Course.class);
         factoryBean.setAnnotatedClasses(Partecipant.class);
         factoryBean.setAnnotatedClasses(RegisteredUser.class);
-        factoryBean.setAnnotatedClasses(RegisteredUserRole.class);        
         return factoryBean;
     }
     

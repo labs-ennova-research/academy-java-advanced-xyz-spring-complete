@@ -18,10 +18,8 @@
 
 		
 		<mapping class="com.ennova_research.academy.xyzspring.dao.model.BoUser" />
-		<mapping class="com.ennova_research.academy.xyzspring.dao.model.BoUserRole" />
 		<mapping class="com.ennova_research.academy.xyzspring.dao.model.Course" />
 		<mapping class="com.ennova_research.academy.xyzspring.dao.model.Partecipant" />
         <mapping class="com.ennova_research.academy.xyzspring.dao.model.RegisteredUser" />
-        <mapping class="com.ennova_research.academy.xyzspring.dao.model.RegisteredUserRole" />
 	</session-factory>
 </hibernate-configuration>

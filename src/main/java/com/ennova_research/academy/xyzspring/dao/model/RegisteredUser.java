@@ -36,8 +36,8 @@ public class RegisteredUser {
 	@Column(name = "born_date")    
 	private Date bornDate;
 		
-	@Column(name = "id_registered_user_role")    
-	private Long idRegisteredUserRole;
+	@Column(name = "user_role")    
+	private String userRole;
 
 	public Long getIdRegisteredUser() {
 		return idRegisteredUser;
@@ -87,13 +87,12 @@ public class RegisteredUser {
 		this.bornDate = bornDate;
 	}
 
-	public Long getIdRegisteredUserRole() {
-		return idRegisteredUserRole;
+	public String getUserRole() {
+		return userRole;
 	}
 
-	public void setIdRegisteredUserRole(Long idRegisteredUserRole) {
-		this.idRegisteredUserRole = idRegisteredUserRole;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
-
 	
 }

@@ -3,16 +3,16 @@ package com.ennova_research.academy.xyzspring.dao.model;
  * @author Alberto Ielpo
  */
 public enum RegisteredRoleType {
-	STUDENT((short)0),
-	TEACHER((short)1);
+	STUDENT("STUDENT"),
+	TEACHER("TEACHER");
 	
-	private final short value;
+	private final String value;
 	
-	private RegisteredRoleType(short value) {
+	private RegisteredRoleType(String value) {
 		this.value = value;
 	}
 	
-	public short getValue() {
+	public String getValue() {
 		return this.value;
 	}
 }

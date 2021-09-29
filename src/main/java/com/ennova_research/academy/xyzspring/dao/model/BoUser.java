@@ -28,9 +28,8 @@ public class BoUser {
 	@Column(name = "password")    
 	private String password;
 	
-
-	@Column(name = "id_bo_user_role")    
-	private Long idBoUserRole;
+	@Column(name = "user_role")    
+	private String userRole;
 
 
 	public Long getIdBoUser() {
@@ -62,7 +61,6 @@ public class BoUser {
 		this.username = username;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
@@ -73,13 +71,13 @@ public class BoUser {
 	}
 
 
-	public Long getIdBoUserRole() {
-		return idBoUserRole;
+	public String getUserRole() {
+		return userRole;
 	}
 
 
-	public void setIdBoUserRole(Long idBoUserRole) {
-		this.idBoUserRole = idBoUserRole;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
 
 	
