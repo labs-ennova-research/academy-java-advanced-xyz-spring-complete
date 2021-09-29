@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +38,9 @@ public class RegisteredUser {
 	@Column(name = "born_date")    
 	private Date bornDate;
 		
+	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role")    
-	private String userRole;
+	private RegisteredRoleType userRole;
 
 	public Long getIdRegisteredUser() {
 		return idRegisteredUser;
@@ -87,11 +90,11 @@ public class RegisteredUser {
 		this.bornDate = bornDate;
 	}
 
-	public String getUserRole() {
+	public RegisteredRoleType getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(String userRole) {
+	public void setUserRole(RegisteredRoleType userRole) {
 		this.userRole = userRole;
 	}
 	

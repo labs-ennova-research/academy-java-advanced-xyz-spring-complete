@@ -2,6 +2,8 @@ package com.ennova_research.academy.xyzspring.dao.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,19 +30,17 @@ public class BoUser {
 	@Column(name = "password")    
 	private String password;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "user_role")    
-	private String userRole;
-
+	private BoUserRoleType userRole;
 
 	public Long getIdBoUser() {
 		return idBoUser;
 	}
 
-
 	public void setIdBoUser(Long idBoUser) {
 		this.idBoUser = idBoUser;
 	}
-
 
 	public String getFullName() {
 		return fullName;
@@ -51,11 +51,9 @@ public class BoUser {
 		this.fullName = fullName;
 	}
 
-
 	public String getUsername() {
 		return username;
 	}
-
 
 	public void setUsername(String username) {
 		this.username = username;
@@ -71,12 +69,11 @@ public class BoUser {
 	}
 
 
-	public String getUserRole() {
+	public BoUserRoleType getUserRole() {
 		return userRole;
 	}
 
-
-	public void setUserRole(String userRole) {
+	public void setUserRole(BoUserRoleType userRole) {
 		this.userRole = userRole;
 	}
 

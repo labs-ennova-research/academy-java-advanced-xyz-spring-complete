@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(StringUtils.hasText(username)) {
 			BoUser boUser = hibernateBoUserDao.getByUsername(username);
 			if(boUser != null) {
-				return new UserDetailsImpl(boUser.getUsername(), boUser.getPassword());
+				return new UserDetailsImpl(boUser.getUsername(), boUser.getPassword(), boUser.getUserRole());
 			}
 		} 
 		

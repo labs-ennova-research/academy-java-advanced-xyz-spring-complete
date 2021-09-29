@@ -18,4 +18,9 @@ public enum BoUserRoleType {
 		return this.value;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getValue();
+	}
+	
 }

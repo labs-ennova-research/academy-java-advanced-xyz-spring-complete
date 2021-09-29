@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ennova_research.academy.xyzspring.dao.model.BoUserRoleType;
+
 /**
  * @author Alberto Ielpo
  */
@@ -16,15 +18,17 @@ public class UserDetailsImpl implements UserDetails {
 	
 	private String username;
 	private String password;
+	private SimpleGrantedAuthority role;
 	
-	public UserDetailsImpl(String username, String password) {
+	public UserDetailsImpl(String username, String password, BoUserRoleType role) {
 		this.username = username;
 		this.password = password;
-	
+		this.role = new SimpleGrantedAuthority(role.getValue());
 	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+		return Arrays.asList(this.role);
 	}
 
 	@Override

@@ -40,27 +40,13 @@ CREATE table if not exists xyz.partecipant (
 -- dummy data
 insert into xyz.course (name, description) values ('Java', 'Corso di java')
 
--- 0 student
--- 1 teacher
-insert into xyz.registered_user_role (role_type) values (0);
-insert into xyz.registered_user_role (role_type) values (1);
-
--- 0 admin
--- 1 read_all
--- 2 write_all
-insert into xyz.bo_user_role (role_type) values (0);
-insert into xyz.bo_user_role (role_type) values (1);
-insert into xyz.bo_user_role (role_type) values (2);
-
-select * from xyz.bo_user_role
-
 -- bo users
-insert into xyz.bo_user (full_name, username, password, id_bo_user_role) values ('admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1);
-insert into xyz.bo_user (full_name, username, password, id_bo_user_role) values ('employee', 'employee', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 2);
-insert into xyz.bo_user (full_name, username, password, id_bo_user_role) values ('employee2', 'employee2', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 3);
+insert into xyz.bo_user (full_name, username, password, user_role) values ('admin', 'admin', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'ADMIN');
+insert into xyz.bo_user (full_name, username, password, user_role) values ('employee', 'employee', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'READ_ALL');
+insert into xyz.bo_user (full_name, username, password, user_role) values ('employee2', 'employee2', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'WRITE_ALL');
 
---
-insert into xyz.registered_user (name, surname, born_date, id_registered_user_role) values ('Student', 'Student', now(), 2);
-insert into xyz.registered_user (name, surname, born_date, id_registered_user_role) values ('Student2', 'Student2', now(), 2);
-insert into xyz.registered_user (name, surname, born_date, id_registered_user_role) values ('Teacher', 'Teacher', now(), 1);
+-- registered user
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Student', 'Student', now(), 'STUDENT');
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Student2', 'Student2', now(), 'STUDENT');
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Teacher', 'Teacher', now(), 'TEACHER');
 
