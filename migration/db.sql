@@ -1,38 +1,23 @@
--- role
-CREATE TABLE IF NOT EXISTS xyz.bo_user_role (
-  `id_bo_user_role` bigint NOT NULL AUTO_INCREMENT,
-  `role_type` smallint,
-  PRIMARY KEY (`id_bo_user_role`)
-); 
 
-CREATE TABLE IF NOT EXISTS xyz.registered_user_role (
-  `id_registered_user_role` bigint NOT NULL AUTO_INCREMENT,
-  `role_type` smallint,
-  PRIMARY KEY (`id_registered_user_role`)
-);
-
-CREATE table if not exists xyz.registered_user (
+CREATE TABLE IF NOT EXISTS xyz.`registered_user` (
   `id_registered_user` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `surname` varchar(64) NOT NULL,
   `fiscal_code` varchar(64) DEFAULT NULL,
   `sex` varchar(10) DEFAULT NULL,
   `born_date` date NOT NULL,
-  `id_registered_user_role` bigint NOT NULL,
-  PRIMARY KEY (`id_registered_user`),
-  KEY `registered_user_fk` (`id_registered_user_role`),
-  CONSTRAINT `registered_user_fk` FOREIGN KEY (`id_registered_user_role`) REFERENCES `registered_user_role` (`id_registered_user_role`)
-);
+  `user_role` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_registered_user`)
+)
 
-CREATE table if not exists xyz.bo_user (
-  `id_bo_user_user` bigint NOT NULL AUTO_INCREMENT,
+
+CREATE TABLE IF NOT EXISTS xyz.`bo_user` (
+  `id_bo_user` bigint NOT NULL AUTO_INCREMENT,
   `full_name` varchar(64) NOT NULL,
   `username` varchar(64) NOT NULL,
   `password` varchar(512) NOT NULL,
-  `id_bo_user_role` bigint NOT NULL,
-  PRIMARY KEY (`id_bo_user_user`),
-  KEY `bo_user_fk` (`id_bo_user_role`),
-  CONSTRAINT `bo_user_fk` FOREIGN KEY (`id_bo_user_role`) REFERENCES `bo_user_role` (`id_bo_user_role`)
+  `user_role` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_bo_user`)
 );
  
 CREATE TABLE IF NOT EXISTS xyz.course (
