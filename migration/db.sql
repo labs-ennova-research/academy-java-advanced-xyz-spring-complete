@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS xyz.`registered_user` (
+CREATE TABLE IF NOT EXISTS xyz.registered_user (
   `id_registered_user` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `surname` varchar(64) NOT NULL,
@@ -8,10 +8,9 @@ CREATE TABLE IF NOT EXISTS xyz.`registered_user` (
   `born_date` date NOT NULL,
   `user_role` varchar(32) NOT NULL,
   PRIMARY KEY (`id_registered_user`)
-)
+);
 
-
-CREATE TABLE IF NOT EXISTS xyz.`bo_user` (
+CREATE TABLE IF NOT EXISTS xyz.bo_user (
   `id_bo_user` bigint NOT NULL AUTO_INCREMENT,
   `full_name` varchar(64) NOT NULL,
   `username` varchar(64) NOT NULL,
@@ -38,7 +37,7 @@ CREATE table if not exists xyz.partecipant (
 
 
 -- dummy data
-insert into xyz.course (name, description) values ('Java', 'Corso di java')
+insert into xyz.course (name, description) values ('Java', 'Corso di java');
 
 -- bo users
 insert into xyz.bo_user (full_name, username, password, user_role) values ('admin', 'admin', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'ADMIN');
