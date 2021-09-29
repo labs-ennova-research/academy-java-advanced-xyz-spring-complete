@@ -40,12 +40,16 @@ CREATE table if not exists xyz.partecipant (
 insert into xyz.course (name, description) values ('Java', 'Corso di java');
 
 -- bo users
-insert into xyz.bo_user (full_name, username, password, user_role) values ('admin', 'admin', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'ADMIN');
-insert into xyz.bo_user (full_name, username, password, user_role) values ('employee', 'employee', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'READ_ALL');
-insert into xyz.bo_user (full_name, username, password, user_role) values ('employee2', 'employee2', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'WRITE_ALL');
+insert into xyz.bo_user (full_name, username, password, user_role) values ('Ignazio Ganza', 'admin', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'ADMIN');
+insert into xyz.bo_user (full_name, username, password, user_role) values ('Marco Zappa', 'marco.zappa', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'READ_ALL');
+insert into xyz.bo_user (full_name, username, password, user_role) values ('Nando Zanetti', 'nando.zanetti', '$2a$10$uQq7EiULkNIrIHlKsqIyh.NGy6LEmBFf25w/qWYIwoeD7L0i1.A7q', 'WRITE_ALL');
 
 -- registered user
-insert into xyz.registered_user (name, surname, born_date, user_role) values ('Student', 'Student', now(), 'STUDENT');
-insert into xyz.registered_user (name, surname, born_date, user_role) values ('Student2', 'Student2', now(), 'STUDENT');
-insert into xyz.registered_user (name, surname, born_date, user_role) values ('Teacher', 'Teacher', now(), 'TEACHER');
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Gianluigi', 'Pace', now(), 'STUDENT');
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Elena', 'Drago', now(), 'STUDENT');
+insert into xyz.registered_user (name, surname, born_date, user_role) values ('Clarissa', 'Coppola', now(), 'TEACHER');
 
+-- insert partecipant
+insert into xyz.partecipant (id_course, id_registered_user) values (1,1);
+insert into xyz.partecipant (id_course, id_registered_user) values (1,2);
+insert into xyz.partecipant (id_course, id_registered_user) values (1,3);

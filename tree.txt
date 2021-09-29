@@ -1,0 +1,24 @@
+├───.settings
+├───migration
+└───src
+    ├───main
+    │   ├───java
+    │   │   └───com
+    │   │       └───ennova_research
+    │   │           └───academy
+    │   │               └───xyzspring
+    │   │                   ├───config
+    │   │                   ├───controller
+    │   │                   ├───dao
+    │   │                   │   ├───model
+    │   │                   │   └───repository
+    │   │                   ├───dto
+    │   │                   │   ├───factory
+    │   │                   │   └───model
+    │   │                   ├───security
+    │   │                   └───service
+    │   ├───resources
+    │   └───webapp
+    │       └───WEB-INF
+    └───test
+        └───java
