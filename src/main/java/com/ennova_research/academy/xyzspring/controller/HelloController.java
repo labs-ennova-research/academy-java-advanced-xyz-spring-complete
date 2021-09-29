@@ -3,6 +3,7 @@ package com.ennova_research.academy.xyzspring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,8 @@ public class HelloController {
 	@Autowired
 	private RegisteredUserService registeredUserServiceImpl;
 	
+	final static Logger logger = Logger.getLogger(HelloController.class);
+	
 	/**
 	 * 
 	 * @return
@@ -39,6 +42,8 @@ public class HelloController {
     @RequestMapping(method = RequestMethod.GET, path = "/hello")
     public ResponseEntity<String> sayHello() {
         
+    	logger.info("hello");
+    	
     	final HttpHeaders httpHeaders= new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         
