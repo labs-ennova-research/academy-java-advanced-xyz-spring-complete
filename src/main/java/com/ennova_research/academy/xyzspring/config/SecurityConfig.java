@@ -69,11 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
     }
     
-    
 	@Bean
 	public PasswordEncoder passwordEncoder() {		
 		return new BCryptPasswordEncoder();
 	}	
-
     
 }
