@@ -14,7 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
+import com.ennova_research.academy.xyzspring.dao.model.BoUserRoleType;
+import com.ennova_research.academy.xyzspring.security.CustomAccessDeniedHandler;
 import com.ennova_research.academy.xyzspring.security.CustomBasicAuthenticationEntryPoint;
 
 /**
@@ -45,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsServiceImpl;
 
     @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
+    public void configure(AuthenticationManagerBuilder auth)
             throws Exception {    	
         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
@@ -55,9 +58,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
 	  http.cors().and().csrf().disable()
 	  	.authorizeRequests()
-	  	.antMatchers("/api/course/**").permitAll().and()
+	  	.antMatchers("/api/**/management/**").hasAnyAuthority(
+	  			BoUserRoleType.ADMIN.getValue(),
+	  			BoUserRoleType.WRITE_ALL.getValue())
+	  	.antMatchers("/api/**/employee/**").hasAnyAuthority(
+	  			BoUserRoleType.ADMIN.getValue(),
+	  			BoUserRoleType.READ_ALL.getValue(),
+	  			BoUserRoleType.WRITE_ALL.getValue())
+	  	.antMatchers("/api/**/public/**").permitAll()
+	  	.antMatchers("/api/**").denyAll().and()
+	  	.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and()
 		.httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
  	}
+	    
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+    	return new CustomAccessDeniedHandler();
+    }
 	
 	@Bean
 	public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){

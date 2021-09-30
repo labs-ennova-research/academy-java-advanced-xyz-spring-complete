@@ -24,5 +24,13 @@ public interface RegisteredUserService {
 	 */
 	List<RegisteredUser> getByCourseName(String courseName) throws Exception;
 	
+	/**
+	 * 
+	 * @param registeredUserId
+	 * @return
+	 * @throws Exception
+	 */
+	RegisteredUser getById(long registeredUserId) throws Exception;
+	
 	
 }

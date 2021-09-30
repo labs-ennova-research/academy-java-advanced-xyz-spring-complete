@@ -36,4 +36,9 @@ public class RegisteredUserServiceImpl implements RegisteredUserService {
 		return this.hibernateRegisteredUserDao.findByCourseName(courseName);
 	}
 
+	@Override
+	public RegisteredUser getById(long registeredUserId) throws Exception {
+		return this.hibernateRegisteredUserDao.findById(registeredUserId);
+	}
+
 }

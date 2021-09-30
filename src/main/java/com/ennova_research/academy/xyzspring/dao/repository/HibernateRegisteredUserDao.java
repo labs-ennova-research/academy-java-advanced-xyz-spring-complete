@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import com.ennova_research.academy.xyzspring.dao.model.RegisteredRoleType;
 import com.ennova_research.academy.xyzspring.dao.model.RegisteredUser;
@@ -43,6 +44,16 @@ public class HibernateRegisteredUserDao implements RegisteredUserDao  {
 		return query.getResultList();
 	}
 
-
+	@Override
+	public RegisteredUser findById(long registeredUserId) {
+		Assert.isTrue(registeredUserId > 0, "registeredUserId name must be valid");
+		
+		String queryStr = "select r from RegisteredUser r where r.idRegisteredUser = :registeredUserId";
+		var query = this.sessionFactory.getCurrentSession().createQuery(queryStr, RegisteredUser.class);
+		query.setParameter("registeredUserId", registeredUserId, org.hibernate.type.LongType.INSTANCE);
+		var res = query.getResultList();
+		return CollectionUtils.isEmpty(res) ? null : res.get(0);
+	
+	}
 
 }

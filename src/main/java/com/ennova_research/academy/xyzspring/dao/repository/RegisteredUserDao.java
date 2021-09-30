@@ -12,4 +12,6 @@ public interface RegisteredUserDao  {
 	public List<RegisteredUser> findAll();
 	
 	public List<RegisteredUser> findByCourseName(String courseName);
+
+	public RegisteredUser findById(long registeredUserId);
 }
