@@ -29,7 +29,7 @@ import com.ennova_research.academy.xyzspring.service.RegisteredUserService;
  * @author Alberto Ielpo
  */
 @RestController
-@RequestMapping(value = "${url.api}/course")
+@RequestMapping(value = "${url.api}/std/course")
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
 public class CourseController {
 

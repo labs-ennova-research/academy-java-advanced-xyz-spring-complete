@@ -26,5 +26,5 @@ public class HibernateBoUserDao implements BoUserDao {
 		var rs = query.getResultList();
 		return CollectionUtils.isEmpty(rs) ? null : rs.get(0);
 	}
-	
+
 }

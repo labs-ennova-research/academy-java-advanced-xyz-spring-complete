@@ -8,4 +8,5 @@ import com.ennova_research.academy.xyzspring.dao.model.BoUser;
 public interface BoUserDao {
 
 	public BoUser getByUsername(String username);
+	
 }
