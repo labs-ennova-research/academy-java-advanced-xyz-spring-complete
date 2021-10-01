@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.ennova_research.academy.xyzspring.dao.model.BoUserRoleType;
 import com.ennova_research.academy.xyzspring.security.CustomAccessDeniedHandler;
 import com.ennova_research.academy.xyzspring.security.JwtTokenFilter;
 
@@ -25,7 +26,6 @@ import com.ennova_research.academy.xyzspring.security.JwtTokenFilter;
  */
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(2)
 public class SecurityConfigJwt extends WebSecurityConfigurerAdapter {
 
@@ -50,9 +50,16 @@ public class SecurityConfigJwt extends WebSecurityConfigurerAdapter {
  
 	  http.cors().and().csrf().disable().sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-	  	.authorizeRequests()
+      	.antMatcher("/api/tp/**").authorizeRequests()
+	  	.antMatchers("/api/tp/**/management/**").hasAnyAuthority(
+	  			BoUserRoleType.ADMIN.getValue(),
+	  			BoUserRoleType.WRITE_ALL.getValue())
+	  	.antMatchers("/api/tp/**/employee/**").hasAnyAuthority(
+	  			BoUserRoleType.ADMIN.getValue(),
+	  			BoUserRoleType.READ_ALL.getValue(),
+	  			BoUserRoleType.WRITE_ALL.getValue())
 	  	.antMatchers("/api/tp/**/public/**").permitAll()
-	  	.antMatchers("/api/tp/**").authenticated().and()
+	  	.antMatchers("/api/tp/**").denyAll().and()
 	  	.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 	  
       http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -14,14 +14,20 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 @Controller
 public class JwtTokenManager {
 
-	public String createToken() {
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public String createToken(String username) {
 		try {
+			Date oneHour = new Date(new Date().getTime()+1000*60*60);
 			Algorithm algorithm = Algorithm.HMAC256("thisIsMySecretKey");
 		    String token = JWT.create()
 		    		.withIssuer("xyz")
-		    		.withExpiresAt(new Date(new Date().getTime()+1000*60*60))
+		    		.withExpiresAt(oneHour)
 		    		.withIssuedAt(new Date())
-		    		.withSubject("admin")	//could be the username
+		    		.withSubject(username)
 		    		.sign(algorithm);
 		    return token;
 		} catch (JWTCreationException exception){

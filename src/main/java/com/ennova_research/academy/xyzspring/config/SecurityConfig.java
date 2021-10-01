@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +25,7 @@ import com.ennova_research.academy.xyzspring.security.CustomBasicAuthenticationE
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static String REALM = "MY_TEST_REALM";
@@ -57,16 +57,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
  
 	  http.cors().and().csrf().disable()
-	  	.authorizeRequests()
-	  	.antMatchers("/api/**/management/**").hasAnyAuthority(
+	  	.antMatcher("/api/std/**").authorizeRequests()
+	  	.antMatchers("/api/std/**/management/**").hasAnyAuthority(
 	  			BoUserRoleType.ADMIN.getValue(),
 	  			BoUserRoleType.WRITE_ALL.getValue())
-	  	.antMatchers("/api/**/employee/**").hasAnyAuthority(
+	  	.antMatchers("/api/std/**/employee/**").hasAnyAuthority(
 	  			BoUserRoleType.ADMIN.getValue(),
 	  			BoUserRoleType.READ_ALL.getValue(),
 	  			BoUserRoleType.WRITE_ALL.getValue())
-	  	.antMatchers("/api/**/public/**").permitAll()
-	  	.antMatchers("/api/**").denyAll().and()
+	  	.antMatchers("/api/std/**/public/**").permitAll()
+	  	.antMatchers("/api/std/**").denyAll().and()
 	  	.exceptionHandling().accessDeniedHandler(accessDeniedHandler()).and()
 		.httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
  	}
