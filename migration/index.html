@@ -1,0 +1,42 @@
+<!--  @Author Alberto Ielpo -->
+<!--  Dummy UI  -->
+<html>
+<head>
+<script type="text/javascript">
+function getPartecipant(path, resId){
+	fetch(path, {
+	  method: 'GET', // or 'PUT'
+	  headers: {
+		'Content-Type': 'application/json',
+		'Authorization': 'Basic YWRtaW46cGFzc3dvcmQ='
+	  }//,
+	  //body: JSON.stringify(data),
+	})
+	.then(response => response.json())
+	.then(data => {
+	  document.getElementById(resId).innerHTML = JSON.stringify(data);
+	})
+	.catch((error) => {
+	  document.getElementById(resId).innerHTML = JSON.stringify(error);
+	});
+}
+</script>
+</head>
+<body>
+	<h1>Dummy UI</h1>
+	<table>
+		<tr>
+			<td><input type="button"
+				onclick="getPartecipant('http://localhost:8080/xyzspringcomplete/api/std/course/public/partecipant/get?courseName=java', 'std-get-partecipant')"
+				value="Public Get Partecipant"></td>
+			<td><span id="std-get-partecipant"></span></td>
+		</tr>
+		<tr>
+			<td><input type="button"
+				onclick="getPartecipant('http://localhost:8080/xyzspringcomplete/api/std/course/employee/partecipant/get?courseName=java', 'std-employee-get-partecipant')"
+				value="Employee Get partecipant"></td>
+			<td><span id="std-employee-get-partecipant"></span></td>
+		</tr>
+	</table>
+</body>
+</html>
