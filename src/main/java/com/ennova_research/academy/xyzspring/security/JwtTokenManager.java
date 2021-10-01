@@ -11,6 +11,9 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+/**
+ * @author Alberto Ielpo
+ */
 @Controller
 public class JwtTokenManager {
 

@@ -1,4 +1,4 @@
-package com.ennova_research.academy.xyzspring.controller;
+package com.ennova_research.academy.xyzspring.manager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.ennova_research.academy.xyzspring.dao.model.Course;
 import com.ennova_research.academy.xyzspring.dao.model.Partecipant;
@@ -24,14 +18,11 @@ import com.ennova_research.academy.xyzspring.dto.model.CoursePartecipants;
 import com.ennova_research.academy.xyzspring.service.CourseService;
 import com.ennova_research.academy.xyzspring.service.PartecipantService;
 import com.ennova_research.academy.xyzspring.service.RegisteredUserService;
-
 /**
  * @author Alberto Ielpo
  */
-@RestController
-@RequestMapping(value = "${url.api}/std/course")
-@Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
-public class CourseController {
+@Service("courseManager")
+public class CourseManager {
 
 	@Autowired
 	private RegisteredUserService registeredUserServiceImpl;
@@ -41,16 +32,15 @@ public class CourseController {
 	
 	@Autowired
 	private CourseService courseServiceImpl;
+	
+	final static Logger logger = Logger.getLogger(CourseManager.class);
 
-	final static Logger logger = Logger.getLogger(CourseController.class);
-
-    /**
-     * 
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/public/partecipant/get")
-    public ResponseEntity<Response> getByCourseName(
-    		@RequestParam String courseName) {
+	/**
+	 * 
+	 * @param courseName
+	 * @return
+	 */
+	public ResponseEntity<Response> getCourseByName(String courseName) {
         
         try {
         	var resModel = new ArrayList<com.ennova_research.academy.xyzspring.dto.model.RegisteredUser>();
@@ -71,16 +61,15 @@ public class CourseController {
         	logger.error(e);
         	return ResponseFactory.jsonErrorResponse("Something bad happened");
         }
-    }
     
-    /**
-     * 
-     * @param courseName
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/employee/partecipant/get")
-    public ResponseEntity<Response> getEByCourseName(
-    		@RequestParam String courseName) {
+	}
+	
+	/**
+	 * 
+	 * @param courseName
+	 * @return
+	 */
+	public ResponseEntity<Response> getECourseByName(String courseName){
         
         try {
         	var resModel = new CoursePartecipants();
@@ -111,17 +100,14 @@ public class CourseController {
         	logger.error(e);
         	return ResponseFactory.jsonErrorResponse("Something bad happened");
         }
-    }
-    
-    /**
-     * 
-     * @param request
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.PUT, path = "/management/partecipant/put")
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
-    public ResponseEntity<Response> addPartecipant(
-    		@RequestBody AddPartecipantRequest request) {
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public ResponseEntity<Response> addCoursePartecipant(AddPartecipantRequest request){
         
         try {
 
@@ -150,16 +136,7 @@ public class CourseController {
         	logger.error(e);
         	return ResponseFactory.jsonErrorResponse("Something bad happened");
         }
-    }
     
-    /**
-     * 
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/test")
-    public ResponseEntity<Response> test() {
-    	/** should nevere here... */
-    	return ResponseFactory.jsonOkResponse();
-    }
-    
+	}
+	
 }

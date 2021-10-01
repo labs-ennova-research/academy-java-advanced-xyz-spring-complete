@@ -1,6 +1,7 @@
 package com.ennova_research.academy.xyzspring.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ennova_research.academy.xyzspring.dto.factory.Response;
 import com.ennova_research.academy.xyzspring.dto.factory.ResponseFactory;
 import com.ennova_research.academy.xyzspring.dto.model.AddPartecipantRequest;
+import com.ennova_research.academy.xyzspring.manager.CourseManager;
 
 /**
  * @author Alberto Ielpo
  */
 @RestController
-@RequestMapping(value = "${url.api}/tp/course")
+@RequestMapping(value = "${url.api}/std/course")
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
-public class TpController {
+public class StdCourseController {
 
-	final static Logger logger = Logger.getLogger(TpController.class);
-    
+	@Autowired
+	private CourseManager courseManager;
+
+	final static Logger logger = Logger.getLogger(StdCourseController.class);
+
     /**
      * 
      * @return
@@ -31,15 +36,18 @@ public class TpController {
     @RequestMapping(method = RequestMethod.GET, path = "/public/partecipant/get")
     public ResponseEntity<Response> getByCourseName(
     		@RequestParam String courseName) {
-    	return ResponseFactory.jsonOkResponse();
+    	return courseManager.getCourseByName(courseName);
     }
     
     /**
+     * 
+     * @param courseName
+     * @return
      */
     @RequestMapping(method = RequestMethod.GET, path = "/employee/partecipant/get")
     public ResponseEntity<Response> getEByCourseName(
     		@RequestParam String courseName) {
-    	return ResponseFactory.jsonOkResponse();
+    	return courseManager.getECourseByName(courseName);
     }
     
     /**
@@ -51,7 +59,7 @@ public class TpController {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
     public ResponseEntity<Response> addPartecipant(
     		@RequestBody AddPartecipantRequest request) {
-    	return ResponseFactory.jsonOkResponse();
+    	return courseManager.addCoursePartecipant(request);
     }
     
     /**
@@ -63,4 +71,5 @@ public class TpController {
     	/** should nevere here... */
     	return ResponseFactory.jsonOkResponse();
     }
+    
 }
