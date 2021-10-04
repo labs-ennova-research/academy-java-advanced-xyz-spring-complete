@@ -74,4 +74,13 @@ public class StdCourseController {
     	return ResponseFactory.jsonOkResponse();
     }
     
+    /**
+     * 
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, path = "/employee/advertisement/users/get")
+    public ResponseEntity<Response> getRemoteUsers() {
+    	return courseManager.getRemoteUsers();
+    }
+    
 }

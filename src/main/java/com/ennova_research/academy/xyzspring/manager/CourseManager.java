@@ -2,11 +2,13 @@ package com.ennova_research.academy.xyzspring.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.ennova_research.academy.xyzspring.dao.model.Course;
 import com.ennova_research.academy.xyzspring.dao.model.Partecipant;
@@ -15,6 +17,7 @@ import com.ennova_research.academy.xyzspring.dto.factory.Response;
 import com.ennova_research.academy.xyzspring.dto.factory.ResponseFactory;
 import com.ennova_research.academy.xyzspring.dto.model.AddPartecipantRequest;
 import com.ennova_research.academy.xyzspring.dto.model.CoursePartecipants;
+import com.ennova_research.academy.xyzspring.dto.model.PossibleUser;
 import com.ennova_research.academy.xyzspring.service.CourseService;
 import com.ennova_research.academy.xyzspring.service.PartecipantService;
 import com.ennova_research.academy.xyzspring.service.RegisteredUserService;
@@ -32,6 +35,9 @@ public class CourseManager {
 	
 	@Autowired
 	private CourseService courseServiceImpl;
+	
+	@Autowired
+	RestTemplate restTemplate;
 	
 	final static Logger logger = Logger.getLogger(CourseManager.class);
 
@@ -94,7 +100,7 @@ public class CourseManager {
     	    		resModel.students.add(model);
     			}
     		}
-
+    		
     		return ResponseFactory.jsonOkResponse(resModel);
         } catch (Exception e) {
         	logger.error(e);
@@ -137,6 +143,37 @@ public class CourseManager {
         	return ResponseFactory.jsonErrorResponse("Something bad happened");
         }
     
+	}
+	
+	/**
+	 * Retrive new users from remote server
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public ResponseEntity<Response> getRemoteUsers(){
+		try {
+			var resMap = restTemplate.getForObject(
+					String.format("%s%s", "https://mocki.io/v1", "/d4867d8b-b5d5-4a48-a4ab-79131b5809b8"), List.class);
+			List<PossibleUser> possibleUsers = new ArrayList<PossibleUser>();
+			for(Object m : resMap) {
+				if(m instanceof Map) {
+					PossibleUser possibleUser = new PossibleUser();
+					possibleUser.name = (String)((Map)m).get("name");
+					possibleUser.city = (String)((Map)m).get("city");
+					//fake an email
+					possibleUser.email = ((String)((Map)m).get("name"))
+							.replaceAll(" ", ".")
+							.toLowerCase()
+							+ "@gmail.com";
+					possibleUsers.add(possibleUser);
+				}
+			}
+			return ResponseFactory.jsonOkResponse(possibleUsers);
+		} catch (Exception e) {
+			logger.error(e);
+			return ResponseFactory.jsonErrorResponse("Error retriving data from remote server");
+		}
+		
 	}
 	
 }
