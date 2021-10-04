@@ -10,6 +10,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 /**
  * @author Alberto Ielpo
@@ -17,6 +18,9 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 @Controller
 public class JwtTokenManager {
 
+	private static final String SECRET = "thisIsMySecretKey";
+	private static final String ISSUER = "xyz";
+	
 	/**
 	 * 
 	 * @param username
@@ -25,9 +29,9 @@ public class JwtTokenManager {
 	public String createToken(String username) {
 		try {
 			Date oneHour = new Date(new Date().getTime()+1000*60*60);
-			Algorithm algorithm = Algorithm.HMAC256("thisIsMySecretKey");
+			Algorithm algorithm = Algorithm.HMAC256(SECRET);
 		    String token = JWT.create()
-		    		.withIssuer("xyz")
+		    		.withIssuer(ISSUER)
 		    		.withExpiresAt(oneHour)
 		    		.withIssuedAt(new Date())
 		    		.withSubject(username)
@@ -59,9 +63,11 @@ public class JwtTokenManager {
 	 */
 	public boolean isValidToken(String token) {
 		try {
-		    DecodedJWT jwt = JWT.decode(token);
+		    Algorithm algorithm = Algorithm.HMAC256(SECRET);
+		    JWTVerifier verifier = JWT.require(algorithm).withIssuer(ISSUER).build();
+		    DecodedJWT jwt = verifier.verify(token);
 		    return jwt.getExpiresAt().after(new Date());
-		} catch (JWTDecodeException exception){
+		} catch (Exception exception){
 			return false;
 		}
 	}
