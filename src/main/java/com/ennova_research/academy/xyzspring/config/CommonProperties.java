@@ -14,4 +14,10 @@ public class CommonProperties {
 	@Value("${url.api}")
 	public String urlApi;
 	
+	@Value("${fake.user.url}")
+	public String fakeUserUrl;
+	
+	@Value("${fake.user.endpoint}")
+	public String fakeUserEndpoint;
+	
 }

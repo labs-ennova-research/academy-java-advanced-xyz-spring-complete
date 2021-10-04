@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.ennova_research.academy.xyzspring.config.CommonProperties;
 import com.ennova_research.academy.xyzspring.dao.model.Course;
 import com.ennova_research.academy.xyzspring.dao.model.Partecipant;
 import com.ennova_research.academy.xyzspring.dao.model.RegisteredUser;
@@ -38,6 +39,9 @@ public class CourseManager {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	CommonProperties commonProperties;
 	
 	final static Logger logger = Logger.getLogger(CourseManager.class);
 
@@ -153,7 +157,9 @@ public class CourseManager {
 	public ResponseEntity<Response> getRemoteUsers(){
 		try {
 			var resMap = restTemplate.getForObject(
-					String.format("%s%s", "https://mocki.io/v1", "/d4867d8b-b5d5-4a48-a4ab-79131b5809b8"), List.class);
+				String.format("%s%s", commonProperties.fakeUserUrl, commonProperties.fakeUserEndpoint), 
+				List.class);
+			
 			List<PossibleUser> possibleUsers = new ArrayList<PossibleUser>();
 			for(Object m : resMap) {
 				if(m instanceof Map) {
