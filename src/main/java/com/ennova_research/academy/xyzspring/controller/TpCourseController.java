@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ennova_research.academy.xyzspring.dto.factory.Response;
 import com.ennova_research.academy.xyzspring.dto.factory.ResponseFactory;
 import com.ennova_research.academy.xyzspring.dto.model.AddPartecipantRequest;
+import com.ennova_research.academy.xyzspring.interceptor.LogToDb;
 import com.ennova_research.academy.xyzspring.manager.CourseManager;
 
 /**
@@ -53,6 +54,7 @@ public class TpCourseController {
      * @param request
      * @return
      */
+    @LogToDb
     @RequestMapping(method = RequestMethod.PUT, path = "/management/partecipant/put")
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = { java.lang.Exception.class })
     public ResponseEntity<Response> addPartecipant(

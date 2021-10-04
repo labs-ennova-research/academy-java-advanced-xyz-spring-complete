@@ -35,6 +35,15 @@ CREATE table if not exists xyz.partecipant (
 	CONSTRAINT partecipant_fk_ru FOREIGN KEY (id_registered_user) REFERENCES xyz.registered_user(id_registered_user)
 );
 
+CREATE TABLE if not exists xyz.log (
+	`id_log` BIGINT NOT NULL AUTO_INCREMENT,
+	`path` varchar(256) NOT NULL,
+	`username` varchar(128) NOT NULL,
+	`details` varchar(256) NULL,
+	`server_timestamp` BIGINT NOT NULL,
+	CONSTRAINT log_pk PRIMARY KEY (id_log)
+);
+
 
 -- dummy data
 insert into xyz.course (name, description) values ('Java', 'Corso di java');

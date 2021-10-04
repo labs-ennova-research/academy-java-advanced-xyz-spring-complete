@@ -21,5 +21,6 @@
 		<mapping class="com.ennova_research.academy.xyzspring.dao.model.Course" />
 		<mapping class="com.ennova_research.academy.xyzspring.dao.model.Partecipant" />
         <mapping class="com.ennova_research.academy.xyzspring.dao.model.RegisteredUser" />
+        <mapping class="com.ennova_research.academy.xyzspring.dao.model.Log" />
 	</session-factory>
 </hibernate-configuration>
